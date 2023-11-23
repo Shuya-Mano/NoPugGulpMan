@@ -1,0 +1,79 @@
+@use "sass:math";
+
+// $breakpoints: (
+//   "sp": "screen and (max-width:599px )",
+//   "hamburger": "screen and (max-width: 993px)",
+//   "tab": "screen and (max-width:1023px )",
+//   "pc": "screen and (min-width: 1024px)",
+// );
+
+// @mixin mq($breakpoint: md) {
+//   @media #{map-get($breakpoints, $breakpoint)} {
+//     @content;
+//   }
+// }
+
+// ーーーーーSPファーストverーーーー
+
+// $breakpoints: (
+//   "pc": "screen and (min-width: 1024px)",
+//   "tab": "screen and (min-width: 1024px) and (max-width: 1023px)",
+//   "hamburger": "screen and (min-width: 594px) and (max-width: 993px)",
+//   "sp": "screen and (max-width: 593px)",
+// );
+
+$breakpoints: (
+  "tab": "screen and (min-width: 768px)",
+  "pc": "screen and (min-width: 1080px)",
+)!default;
+
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+// @mixin fz($fs_min, $width_small, $width_large, $fs_max) {
+//   $preferred_vw_base: math.div(($fs_max - $fs_min), ($width_large - $width_small));
+//   $preferred_rem: ($width_small * -1 * $preferred_vw_base + $fs_min) * .1rem;
+//   $preferred_vw: ($preferred_vw_base * 100) * 1vw;
+//   font-size: clamp($fs_min * 1rem, $preferred_rem *10 + $preferred_vw *10, $fs_max * 1rem);
+// }
+
+@mixin fz($fs_min, $fs_max) {
+  $width_small: 600;
+  $width_large: 1023;
+  $preferred_vw_base: math.div(
+    ($fs_max - $fs_min),
+    ($width_large - $width_small)
+  );
+  $preferred_rem: ($width_small * -1 * $preferred_vw_base + $fs_min) * 0.1rem;
+  $preferred_vw: ($preferred_vw_base * 100) * 1vw;
+  font-size: clamp(
+    $fs_min * 1rem,
+    $preferred_rem * 10 + $preferred_vw * 10,
+    $fs_max * 1rem
+  );
+}
+
+@mixin fz-sp($fs_min, $fs_max) {
+  $width_small: 300;
+  $width_large: 599;
+  $preferred_vw_base: math.div(
+    ($fs_max - $fs_min),
+    ($width_large - $width_small)
+  );
+  $preferred_rem: ($width_small * -1 * $preferred_vw_base + $fs_min) * 0.1rem;
+  $preferred_vw: ($preferred_vw_base * 100) * 1vw;
+  font-size: clamp(
+    $fs_min * 1rem,
+    $preferred_rem * 10 + $preferred_vw * 10,
+    $fs_max * 1rem
+  );
+}
+
+@mixin notcontents {
+  @supports not (display: contents) {
+    @content;
+  }
+}

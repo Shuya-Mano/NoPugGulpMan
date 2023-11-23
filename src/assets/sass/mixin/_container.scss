@@ -1,0 +1,11 @@
+//container
+
+@use "./setting" as *;
+@use "./responsive" as *;
+
+.lower-inner {
+  max-width: 1240px;
+  width: 93%;
+  margin: 0 auto;
+  position: relative;
+}
